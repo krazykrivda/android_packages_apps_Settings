@@ -185,7 +185,29 @@ public class SoundAndDisplaySettings extends PreferenceActivity implements
 
         if (mNotificationPulse != null &&
                 getResources().getBoolean(R.bool.has_intrusive_led) == false) {
-            mSoundDisplaySettings.removePreference(mTrackballSettings);
+	        // KrazyKrivda removed to save some LED options           
+	        //mSoundDisplaySettings.removePreference(mTrackballSettings);
+		// removed ONLY preferences don't seem to have effect on Moto Droid
+		mTrackballSettings.removePreference(mNotificationPulseBlend);
+		mTrackballSettings.removePreference(mBreathingLightColor);
+		mTrackballSettings.removePreference(mTrackballWakeScreen);
+		mTrackballSettings.removePreference(mTrackballUnlockScreen);       	 
+		// these following DO have value to Moto Droid (maybe D/S too?)
+		try {
+                    mNotificationPulse.setChecked(Settings.System.getInt(resolver,
+                        Settings.System.NOTIFICATION_LIGHT_PULSE) == 1);
+                    mNotificationPulse.setOnPreferenceChangeListener(this);
+            	} catch (SettingNotFoundException snfe) {
+                    Log.e(TAG, Settings.System.NOTIFICATION_LIGHT_PULSE + " not found");
+            	}
+            	try {
+              	  mNotificationScreenOn.setChecked(Settings.System.getInt(resolver,
+              	      Settings.System.NOTIFICATION_SCREEN_ON) == 1);
+              	  mNotificationScreenOn.setOnPreferenceChangeListener(this);
+            	} catch (SettingNotFoundException snfe) {
+                    Log.e(TAG, Settings.System.NOTIFICATION_SCREEN_ON + " not found");
+            	}
+        	// KrazyKrivda add ends    
         } else {
             try {
                 mNotificationPulse.setChecked(Settings.System.getInt(resolver,
