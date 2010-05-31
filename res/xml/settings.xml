@@ -189,4 +189,14 @@
                 android:targetClass="com.android.settings.DeviceInfoSettings" />
         </com.android.settings.IconPreferenceScreen>
 
+        <!-- KrazyKrivda added SpareParts shortcut -->
+
+        <com.android.settings.IconPreferenceScreen
+            android:title="@string/spare_parts">
+            <intent
+                android:action="android.intent.action.MAIN"
+                android:targetPackage="com.android.spare_parts"
+                android:targetClass="com.android.spare_parts.SpareParts" />
+        </com.android.settings.IconPreferenceScreen>
+
 </PreferenceScreen>
